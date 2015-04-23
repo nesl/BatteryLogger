@@ -7,11 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
+import android.util.Log;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
     private TextView mTextView;
+    private static final String TAG = "Wear/Activity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,5 +33,6 @@ public class MainActivity extends Activity {
 
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
                 1000 * 60 * 10, alarmIntent);
+        Log.d(TAG, "Registered alarm!");
     }
 }

@@ -32,7 +32,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
             float batteryPct = level / (float)scale;
 
-            BufferedWriter outputBattery = new BufferedWriter(new FileWriter("/storage/sdcard0/sensor_data/battery_normal_.txt", true));
+            BufferedWriter outputBattery = new BufferedWriter(new FileWriter("/storage/sdcard0/sensor_data/battery_normal_use.txt", true));
 
             if (batteryPct > 0.2) {
                 outputBattery.append(String.valueOf(System.currentTimeMillis()) + "," + String.valueOf(batteryPct) + "\n");
