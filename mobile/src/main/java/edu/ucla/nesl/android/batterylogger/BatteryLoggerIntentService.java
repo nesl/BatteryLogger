@@ -35,6 +35,7 @@ public class BatteryLoggerIntentService extends IntentService {
         if (workIntent.getAction().contains(BatteryLogger.START_MEASUREMENT)) {
             LOG_NAME = "/sdcard/powerlog/powerlog_" + System.currentTimeMillis() + ".csv";
             Log.i(TAG, "Start battery logging...");
+            // Log power evert second
             scheduledFuture = mScheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
                 @Override
                 public void run() {
@@ -44,6 +45,7 @@ public class BatteryLoggerIntentService extends IntentService {
         }
         else if (workIntent.getAction().contains(BatteryLogger.STOP_MEASUREMENT)) {
             Log.i(TAG, "Stop battery logging...");
+            // Cancel power logging
             if (scheduledFuture != null) {
                 scheduledFuture.cancel(false);
             }
@@ -55,6 +57,9 @@ public class BatteryLoggerIntentService extends IntentService {
         }
     }
 
+    /**
+     * Read current/voltage from system file (nexus 5)
+     */
     private void logPower() {
         float currentNow = readValue(CURRENT_NOW);
         float voltageNow = readValue(VOLTAGE_NOW);
@@ -68,6 +73,11 @@ public class BatteryLoggerIntentService extends IntentService {
         }
     }
 
+    /**
+     * Function to read value from a file
+     * @param fileName
+     * @return
+     */
     private float readValue(String fileName) {
         float result = 0.0f;
 
