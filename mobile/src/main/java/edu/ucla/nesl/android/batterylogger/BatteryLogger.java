@@ -12,6 +12,7 @@ public class BatteryLogger extends BroadcastReceiver{
     private static final String TAG = "Mobile/BatteryLogger";
     public static final String START_MEASUREMENT = "START";
     public static final String STOP_MEASUREMENT = "STOP";
+    public static final String NAME = "NAME";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -20,6 +21,7 @@ public class BatteryLogger extends BroadcastReceiver{
         if (intent.getAction().contains(START_MEASUREMENT)) {
             Intent startServiceIntent = new Intent(context, BatteryLoggerIntentService.class);
             startServiceIntent.setAction(START_MEASUREMENT);
+            startServiceIntent.putExtra(NAME, intent.getStringExtra(NAME));
             context.startService(startServiceIntent);
         }
         else if (intent.getAction().contains(STOP_MEASUREMENT)) {

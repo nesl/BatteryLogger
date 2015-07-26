@@ -33,7 +33,7 @@ public class BatteryLoggerIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent workIntent) {
         if (workIntent.getAction().contains(BatteryLogger.START_MEASUREMENT)) {
-            LOG_NAME = "/sdcard/powerlog/powerlog_" + System.currentTimeMillis() + ".csv";
+            LOG_NAME = "/sdcard/powerlog/powerlog_" + workIntent.getStringExtra(BatteryLogger.NAME) + "_" + System.currentTimeMillis() + ".csv";
             Log.i(TAG, "Start battery logging...");
             // Log power evert second
             scheduledFuture = mScheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
